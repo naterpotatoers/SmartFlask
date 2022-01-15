@@ -17,7 +17,7 @@ app.use(express.static(__dirname));
 
 // app.use("/", swaggerUi.serve, swaggerUi.setup(swagger));
 app.get("/", (req, res) => {
-  res.send("Mission Control Web Server - Built using ExpressJS");
+  res.send("Hello Adrian");
 });
 app.use("/drive", drive);
 app.use("/arm", arm);

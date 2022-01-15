@@ -24,20 +24,7 @@ var driveStatus: DriveStatus = {
 };
 
 drive.get("/", (req, res) => {
-  driveStatus.is_operational = Number(req.query.is_operational);
-  driveStatus.drive_mode = String(req.query.drive_mode);
-  driveStatus.battery = Number(req.query.battery);
-  driveStatus.left_wheel_speed = Number(req.query.left_wheel_speed);
-  driveStatus.left_wheel_angle = Number(req.query.left_wheel_angle);
-  driveStatus.right_wheel_speed = Number(req.query.right_wheel_speed);
-  driveStatus.right_wheel_angle = Number(req.query.right_wheel_angle);
-  driveStatus.back_wheel_speed = Number(req.query.back_wheel_speed);
-  driveStatus.back_wheel_angle = Number(req.query.back_wheel_angle);
-
-  driveCommands.heartbeat_count = Number(req.query.heartbeat_count);
-  console.log("Query Params: ", req.query);
-  console.log("Returned Commands: ", driveCommands);
-  res.jsonp(driveCommands);
+  res.send("Hello Adrian");
 });
 
 drive.post("/", (req, res) => {
