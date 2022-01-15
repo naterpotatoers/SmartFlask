@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mission Control Server",
+    "description": "SJSU Robotics 2022",
+    "version": "0.1.9"
+  },
+  "tags": [
+    { "name": "drive", "description": "controls the drive system" },
+    { "name": "arm", "description": "controls the arm system" }
+  ],
+  "paths": {
+    "/drive": {
+      "get": {
+        "tags": ["drive"],
+        "parameters": [
+          {
+            "in": "query",
+            "schema": { "$ref": "#/components/schemas/DriveStatus" },
+            "name": "DriveStatus",
+            "description": "The rover sends the following using GET query parameters."
+          }
+        ],
+        "summary": "Rover uses this endpoint to grab commands and update mission control with rover's drive status using query parameters",
+        "description": "Grabs the most current commands from mission control for the rover",
+        "responses": {
+          "200": {
+            "description": "Server updates /drive/status with supplied query parameters & returns drive commands set by POST /drive",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DriveRequest" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["drive"],
+        "summary": "Updates the commands for the rover",
+        "description": "Updates the mission control server with new commands for the rover",
+        "responses": {
+          "200": {
+            "description": "Returns the request object",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DriveRequest" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drive/status": {
+      "get": {
+        "tags": ["drive"],
+        "summary": "Shows the current rover drive status as described by query parameters in GET /drive",
+        "description": "Describes the rover status as described by the GET response query parameters during GET /drive request",
+        "responses": {
+          "200": {
+            "description": "Returns the DriveStatus object",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DriveStatus" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/arm": {
+      "get": {
+        "tags": ["arm"],
+        "parameters": [],
+        "summary": "Rover uses this endpoint to grab commands and update mission control with rover's arm status using query parameters",
+        "description": "Grabs the most current commands from mission control for the rover",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["arm"],
+        "summary": "Updates the commands for the rover",
+        "description": "Updates the mission control server with new commands for the rover",
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/arm/status": {
+      "get": {
+        "tags": ["arm"],
+        "summary": "Shows the current rover arm status as described by query parameters in GET /arm",
+        "description": "Describes the rover status as described by the GET response query parameters during GET /arm request",
+        "responses": { "200": { "description": "OK" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DriveRequest": {
+        "type": "object",
+        "properties": {
+          "is_operational": {
+            "type": "integer",
+            "description": "Determines if drive is operational - 0 = off, 1 = on"
+          },
+          "drive_mode": {
+            "type": "string",
+            "default": "S",
+            "description": "Determines rover's drive mode: S = spin, T = translate, D = drive, L/R/B = experimental mode"
+          },
+          "speed": {
+            "type": "integer",
+            "description": "Determines the speed to move the rover"
+          },
+          "angle": {
+            "type": "integer",
+            "description": "Determines the angle to turn the rover"
+          }
+        }
+      },
+      "DriveStatus": {
+        "type": "object",
+        "properties": {
+          "is_operational": {
+            "type": "integer",
+            "description": "Determines if drive is operational - 0 = off, 1 = on"
+          },
+          "drive_mode": {
+            "type": "string",
+            "default": "S",
+            "description": "Determines rover's drive mode: S = spin, T = translate, D = drive, L/R/B = experimental mode"
+          },
+          "left_wheel_speed": { "type": "integer" },
+          "left_wheel_angle": { "type": "integer" },
+          "right_wheel_speed": { "type": "integer" },
+          "right_wheel_angle": { "type": "integer" },
+          "back_wheel_speed": { "type": "integer" },
+          "back_wheel_angle": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
