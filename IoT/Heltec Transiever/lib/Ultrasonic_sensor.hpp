@@ -33,6 +33,10 @@ public:
     }
     // define sound speed in cm/uS
 
+    float GetDistanceInch(){
+        return distanceInch;
+    }
+
     void SetUp()
     {
         pinMode(trigPin_, OUTPUT); // Sets the trigPin as an Output
