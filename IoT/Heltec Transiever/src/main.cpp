@@ -13,19 +13,15 @@
 #include <Adafruit_MPU6050.h>
 #include <Wire.h>
 
-float USDistance;
-const long frequency = 915E6; // LoRa Frequency
-float previous_distance = 10;
-float current_distance;
-float amount_drank = 0;
-int deviation = 2;
-float bottle_depth = 11.5;
+const long frequency    = 915E6; // LoRa Frequency
+float amount_drank      = 0;
+float bottle_depth      = 11.5;
 float water_height;
-float bottle_diameter = 5.1;
+float bottle_diameter   = 5.1;
 float volume_amount;
 
-int current_water_amount;
-int previous_water_amount;
+int current_water_amount = 0;
+int previous_water_amount = 11.5;
 
 //===To Implement After===
 // GPS Library
@@ -46,7 +42,7 @@ float PrintMPUData()
 
 float GetCurrentDistance()
 {
-  return us_sensor.GetDistanceInch();
+  return us_sensor.GetDistanceCM();
 }
 
 float AmountOfWater()
@@ -58,11 +54,14 @@ float AmountOfWater()
 
 float AmountDrank()
 {
-  current_water_amount = AmountOfWater();
-  if (current_water_amount < previous_water_amount)
+  if (current_water_amount >= 0 || current_water_amount <= bottle_depth)
   {
-    amount_drank = previous_water_amount - current_water_amount;
-    current_water_amount = previous_water_amount;
+    current_water_amount = AmountOfWater();
+    if (current_water_amount < previous_water_amount)
+    {
+      amount_drank = previous_water_amount - current_water_amount;
+      current_water_amount = previous_water_amount;
+    }
   }
   return amount_drank;
 }
@@ -71,7 +70,7 @@ void SensorTesting()
 {
   us_sensor.SenseDistance();
   us_sensor.PrintData();
-  Serial.println("Amount Consumed: " + String(AmountDrank()) + "\n");
+  Serial.println("Amount Consumed: " + String(AmountDrank()) + "mL\n");
 
   // printf("MPU Data: %f", PrintMPUData());
 }
