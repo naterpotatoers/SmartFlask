@@ -28,7 +28,13 @@ flask.get("/:flask_id", (req, res) => {
   let query = `SELECT * FROM flask_table_v2 WHERE flask_name='${flask_id}'`;
   connection.query(query, function (err: Error, results) {
     if (err) throw err;
-    res.send(JSON.stringify(results));
+    let DATES = results.map((item: any) => {
+      return item.timestamp_id;
+    });
+    let WATER_CONSUMED = results.map((item: any) => {
+      return item.water_consumed;
+    });
+    res.json({ DATES, WATER_CONSUMED });
   });
 });
 
