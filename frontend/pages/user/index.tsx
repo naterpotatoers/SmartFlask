@@ -1,6 +1,16 @@
-function User() {
-  return <div>User</div>;
-  // TODO: Should be a page showing all the user data
-}
+import { useRouter } from "next/router";
+
+const User = () => {
+  const router = useRouter();
+  const { username } = router.query;
+  const { flask } = router.query;
+
+  return (
+    <div>
+      <p>User: {username}</p>
+      <p>Flask: {flask}</p>
+    </div>
+  );
+};
 
 export default User;
