@@ -14,15 +14,20 @@ function Leaderboard() {
       .then((data) => {
         setData(data);
         setLoading(false);
+        console.log(data);
       });
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h1>{data[0].flask_name}</h1>
-      <p>{data[1].flask_name}</p>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Leaderboard</h2>
+      <div className={styles.description}>
+        <h3>1st. flask_one - 42oz consumed</h3>
+        <p>2. flask_two - 20oz consumed</p>
+        <p>3. flask_three - 10oz consumed</p>
+      </div>
     </div>
   );
 }
