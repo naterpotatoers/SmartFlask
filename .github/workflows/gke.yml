@@ -23,7 +23,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: my-first-cluster-1
   GKE_ZONE: us-central1-c
-  DEPLOYMENT_NAME: smartflask-backend
+  DEPLOYMENT_NAME: gke-hello-app # TODO: update deployment name if changed in deployment.yaml
 
 jobs:
   setup-and-deploy:
