@@ -107,6 +107,13 @@
   line-height: 1.5;
 }
 
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
 .main-header {
   background-position: center center;
   background-size: cover;
@@ -153,4 +160,9 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.button a:hover {
+  color: #00baf3;
+  background-color: #00baf3;
 }
