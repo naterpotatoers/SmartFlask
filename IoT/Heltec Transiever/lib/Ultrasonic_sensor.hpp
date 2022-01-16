@@ -33,8 +33,14 @@ public:
     }
     // define sound speed in cm/uS
 
-    float GetDistanceInch(){
+    float GetDistanceInch()
+    {
         return distanceInch;
+    }
+
+    float GetDistanceCM()
+    {
+        return distanceCm;
     }
 
     void SetUp()
