@@ -21,6 +21,7 @@ user.get("/", (req, res) => {
   let query = "SELECT * FROM user_table";
   connection.query(query, function (err: Error, results) {
     if (err) throw err;
+    results = results[0];
     res.json({
       results,
     });
