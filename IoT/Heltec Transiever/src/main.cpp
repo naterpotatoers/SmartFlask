@@ -21,6 +21,7 @@ float bottle_diameter         = 5.1;
 float volume_amount           = 0.0;
 float current_water_amount    = 0.0;
 float previous_water_amount   = 11.5;
+String flask_name             = "FlaskyWasky";
 
 //===To Implement After===
 // GPS Library
@@ -81,6 +82,7 @@ void CompileSensors()
   SensorTesting();
   // need to do: Compute mpu angle
   // LoRa.println(AmountDrank());
+  LoRa.println(flas_string_name);
 }
 
 void SendLoRaPacket()
