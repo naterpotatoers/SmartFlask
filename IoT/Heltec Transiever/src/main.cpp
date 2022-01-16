@@ -30,7 +30,7 @@ float previous_water_amount = 11.5;
 String flask_name = "FlaskyWasky";
 String gps_string;
 
-UltrasonicSensor us_sensor(24, 5);
+UltrasonicSensor us_sensor(12, 13);
 
 // GPS
 double Lon, Lat;
