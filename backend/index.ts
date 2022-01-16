@@ -1,6 +1,7 @@
 import os from "os";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
+var cors = require("cors");
 import mysql from "mysql";
 
 // import { default as swagger } from "./swagger.json";
@@ -12,6 +13,7 @@ const app = express().set("json spaces", 2);
 const networkInterfaces = os.networkInterfaces();
 console.log(networkInterfaces);
 
+app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
