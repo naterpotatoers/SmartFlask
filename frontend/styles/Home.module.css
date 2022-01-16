@@ -103,6 +103,39 @@
   line-height: 1.5;
 }
 
+.main-header {
+  background-position: center center;
+  background-size: cover;
+  padding-bottom: 60vh;
+  min-width: 250px;
+  margin: 0 auto;
+}
+
+.nav ul {
+  margin: 0;
+}
+
+.nav li {
+  display: inline;
+}
+
+.nav a {
+  display: inline-block;
+  padding: 0.5em;
+  color: rgb(0, 0, 0);
+}
+
+.main-nav {
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: lighter;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav a:hover {
+  color: rgba(0, 0, 0, 0.2);
+}
+
 .logo {
   height: 1em;
   margin-left: 0.5rem;

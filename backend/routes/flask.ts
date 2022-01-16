@@ -23,6 +23,15 @@ flask.get("/", (req, res) => {
   });
 });
 
+flask.get("/:flask_id", (req, res) => {
+  let flask_id = req.params.flask_id;
+  let query = `SELECT * FROM flask_table_v2 WHERE flask_name='${flask_id}'`;
+  connection.query(query, function (err: Error, results) {
+    if (err) throw err;
+    res.send(JSON.stringify(results));
+  });
+});
+
 flask.post("/", (req, res) => {
   const new_flask = req.body;
   let query = `INSERT INTO flask_table_v2(water_level, water_temperature, water_consumed, time_tilted, flask_gps, flask_name) VALUES ('${new_flask.water_level}', '${new_flask.water_temperature}', '${new_flask.water_consumed}', '${new_flask.time_tilted}', '${new_flask.flask_gps}', '${new_flask.flask_name}')`;
