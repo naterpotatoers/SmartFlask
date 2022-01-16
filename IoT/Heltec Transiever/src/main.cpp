@@ -2,43 +2,73 @@
 #include <Arduino.h>
 #include <algorithm>
 #include <bits/stdc++.h>
+
 // LoRa and Heltec
 #include <heltec.h>
 #include <LoRa.h>
+
+// GPS Module
+#include <TinyGPS++.h>
+#include <SoftwareSerial.h>
 
 // Ultrasonic Sensor
 #include "E:\SmartFlask\IoT\Heltec Transiever\lib\Ultrasonic_sensor.hpp"
 
 // MPU 6050
 #include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
 #include <Wire.h>
 
-const long frequency          = 915E6; // LoRa Frequency
-float amount_drank            = 0.0;
-float bottle_depth            = 11.5;
-float water_height            = 0.0;
-float bottle_diameter         = 5.1;
-float volume_amount           = 0.0;
-float current_water_amount    = 0.0;
-float previous_water_amount   = 11.5;
-String flask_name             = "FlaskyWasky";
+const long frequency = 915E6; // LoRa Frequency
+float amount_drank = 0.0;
+float bottle_depth = 11.5;
+float water_height = 0.0;
+float bottle_diameter = 5.1;
+float volume_amount = 0.0;
+float current_water_amount = 0.0;
+float previous_water_amount = 11.5;
+String flask_name = "FlaskyWasky";
+String gps_string;
 
-//===To Implement After===
-// GPS Library
-//#include <TinyGPS++.h>
-// MPU Library
+UltrasonicSensor us_sensor(24, 5);
 
-// Intiatiated Sensor Objects
-UltrasonicSensor us_sensor(17, 2);
+// GPS
+double Lon, Lat;
+TinyGPSPlus gps;
+static const int RXPin = 17, TXPin = 2;
+static const uint32_t GPSBaud = 9600;
+
 Adafruit_MPU6050 mpu;
 sensors_event_t a, g, temp;
 
-float PrintMPUData()
+String GetGPS()
 {
-  //Under Construction
+  while (Serial2.available())
+  {
+    gps.encode(Serial2.read());
+    if (gps.location.isUpdated())
+    {
+
+      Lat = gps.location.lat();
+      Lon = gps.location.lng();
+      gps_string = (String)Lat + "," + (String)Lon;
+      //delay(3000);
+    }
+  }
+  return gps_string;
+}
+
+float GetAccel()
+{
+  // Under Construction
   Serial.print(a.acceleration.x, 1);
   Serial.print(a.acceleration.y, 1);
   return 0.0;
+}
+
+float GetWaterTemp()
+{
+  return temp.temperature;
 }
 
 float GetCurrentDistance()
@@ -67,21 +97,31 @@ float AmountDrank()
   return amount_drank;
 }
 
-void SensorTesting()
+void GetSensors()
 {
   //UL sensor data output
   us_sensor.SenseDistance();
   us_sensor.PrintData();
   Serial.println("Amount Consumed: " + String(AmountDrank()) + "mL\n");
+  Serial.print("\nLatitude: " + (String)Lat + "\nLongitude: " + (String)Lon + "\n");
+    // GPS
+  //GetGPS();
 
-  // printf("MPU Data: %f", PrintMPUData());
+  // MPU
+
+
 }
 
 void CompileSensors()
 {
-  SensorTesting();
+  // time_tilted, GPS_location;
+  GetSensors();
   // need to do: Compute mpu angle
-  // LoRa.println(AmountDrank());
+  LoRa.println(AmountOfWater());
+  LoRa.println(GetWaterTemp());
+  LoRa.println(AmountDrank());
+  LoRa.println(); // time_tilted IMU
+  LoRa.println(GetGPS());
   LoRa.println(flask_name);
 }
 
@@ -95,6 +135,18 @@ void SendLoRaPacket()
 void setup()
 {
   Serial.begin(9600);
+  Serial2.begin(GPSBaud, SERIAL_8N1,RXPin,TXPin);
+
+  // if (!mpu.begin())
+  // {
+  //   Serial.println("Failed to find MPU6050 chip");
+  //   while (1)
+  //   {
+  //     delay(10);
+  //   }
+  // }
+
+  Serial.println("MPU6050 Found!");
 
   us_sensor.SetUp();
   mpu.getEvent(&a, &g, &temp);
@@ -111,4 +163,5 @@ void setup()
 void loop()
 {
   SendLoRaPacket();
+  delay(3000);
 }
