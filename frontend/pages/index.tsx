@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
+import Link from "next/link";
+
 import Head from "next/head";
 import Image from "next/image";
-import Footer from "../components/footer";
 import styles from "../styles/Home.module.css";
+import logo from "../public/logo.png";
 
 const Home: NextPage = () => {
   return (
@@ -18,39 +20,31 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Smart Flask</h1>
+        <Image alt="Logo" src={logo} width={300} height={300} />
 
         <p className={styles.description}>
-          The Future Now
-          {/* <code className={styles.code}>The future of water</code> */}
+          A flask that monitors your water drinking habits
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
+          <a href="/how" className={styles.card}>
+            <h2>How It Works &rarr;</h2>
+            <p>Find out how we created our smart flask.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a href="/leaderboard" className={styles.card}>
+            <h2>Leaderboard &rarr;</h2>
+            <p>See how you compare against other drinkers!</p>
           </a>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+          <a href="/user?flask='flask_one'" className={styles.card}>
+            <h2>Stats &rarr;</h2>
+            <p>See your daily drinking stats.</p>
           </a>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+          <a href="/new/user" className={styles.card}>
+            <h2>Sign Up &rarr;</h2>
+            <p>Sign up to begin tracking your drinking habits today.</p>
           </a>
         </div>
       </main>

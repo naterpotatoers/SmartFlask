@@ -28,6 +28,10 @@
   flex-grow: 1;
 }
 
+.footer a:hover {
+  color: #00baf3;
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -88,8 +92,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #00baf3;
+  border-color: #00baf3;
 }
 
 .card h2 {
@@ -112,7 +116,10 @@
 }
 
 .nav ul {
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .nav li {
@@ -121,8 +128,8 @@
 
 .nav a {
   display: inline-block;
-  padding: 0.5em;
-  color: rgb(0, 0, 0);
+  padding: 0.8em;
+  color: #000000;
 }
 
 .main-nav {
@@ -133,7 +140,7 @@
 }
 
 .nav a:hover {
-  color: rgba(0, 0, 0, 0.2);
+  color: #00baf3;
 }
 
 .logo {

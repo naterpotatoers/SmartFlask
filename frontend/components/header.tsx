@@ -13,12 +13,12 @@ function Header() {
           </li>
           <li>
             <Link href="/user?flask='flask_one'">
-              <a>Data</a>
+              <a>Stats</a>
             </Link>
           </li>
           <li>
-            <Link href="/new/user">
-              <a>New User</a>
+            <Link href="/leaderboard">
+              <a>Leaderboard</a>
             </Link>
           </li>
         </ul>
