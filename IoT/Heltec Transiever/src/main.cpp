@@ -82,7 +82,7 @@ void CompileSensors()
   SensorTesting();
   // need to do: Compute mpu angle
   // LoRa.println(AmountDrank());
-  LoRa.println(flas_string_name);
+  LoRa.println(flask_name);
 }
 
 void SendLoRaPacket()
