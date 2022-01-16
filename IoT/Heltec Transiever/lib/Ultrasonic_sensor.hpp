@@ -73,9 +73,6 @@ public:
         Serial.println("Print Count: " + String(print_count));
         Serial.print("Distance (cm): ");
         Serial.println(distanceCm);
-        Serial.print("Distance (inch): ");
-        Serial.println(distanceInch);
         print_count++;
-        delay(1000);
     }
 };
