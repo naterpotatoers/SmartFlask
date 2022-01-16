@@ -15,12 +15,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-hello-app
+  name: gke-smartflask-backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: gke-hello-app
+      app: gke-smartflask-backend
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -29,11 +29,11 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-hello-app
+        app: gke-smartflask-backend
     spec:
       containers:
-      - name: hello-app
-        image: gcr.io/google-samples/hello-app:1.0
+      - name: smartflask-backend
+        image: gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
         ports:
         - containerPort: 8080
         resources:
@@ -45,11 +45,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gke-hello-app-service
+  name: gke-smartflask-backend-service
 spec:
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8080
   selector:
-    app: gke-hello-app
+    app: gke-smartflask-backend
