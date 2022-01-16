@@ -32,7 +32,7 @@ spec:
         app: gke-smartflask-backend
     spec:
       containers:
-      - name: smartflask-backend
+      - name: gke-smartflask-backend
         image: gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
         ports:
         - containerPort: 8080
