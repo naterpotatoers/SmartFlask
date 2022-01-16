@@ -37,7 +37,6 @@ flask.get("/leaderboard", (req, res) => {
     "SELECT flask_name, SUM(water_consumed) AS water_consumed FROM flask_table_v2 GROUP BY flask_name ORDER BY water_consumed DESC LIMIT 3";
   connection.query(query, function (err: Error, results) {
     if (err) throw err;
-    results = results[0];
     res.send(JSON.stringify(results));
   });
 });
