@@ -1,3 +1,5 @@
+#include <math.h>
+#include <Arduino.h>
 #include <algorithm>
 #include <bits/stdc++.h>
 // LoRa and Heltec
@@ -5,7 +7,7 @@
 #include <LoRa.h>
 
 // Ultrasonic Sensor
-#include "/home/adrien/Repos/SmartFlask/IoT/Heltec Transiever/lib/Ultrasonic_sensor.hpp"
+#include "E:\SmartFlask\IoT\Heltec Transiever\lib\Ultrasonic_sensor.hpp"
 
 // MPU 6050
 #include <Adafruit_MPU6050.h>
@@ -13,10 +15,17 @@
 
 float USDistance;
 const long frequency = 915E6; // LoRa Frequency
-float previous_distance = 0;
+float previous_distance = 10;
 float current_distance;
 float amount_drank = 0;
 int deviation = 2;
+float bottle_depth = 11.5;
+float water_height;
+float bottle_diameter = 5.1;
+float volume_amount;
+
+int current_water_amount;
+int previous_water_amount;
 
 //===To Implement After===
 // GPS Library
@@ -35,27 +44,34 @@ float PrintMPUData()
   return 0;
 }
 
-void AmountDrank()
+float GetCurrentDistance()
 {
-    if (amount_drank < 15 && amount_drank > 0){
-    current_distance = us_sensor.GetDistanceInch();
-    if (current_distance > previous_distance)
-    {
-      amount_drank += current_distance - previous_distance;
-      previous_distance = current_distance;
-    } else if (current_distance < previous_distance){
-      amount_drank -= current_distance;
-    }
+  return us_sensor.GetDistanceInch();
+}
 
-    Serial.println("Amount Consumed: " + String(amount_drank) + "\n");
-    }
+float AmountOfWater()
+{
+  water_height = bottle_depth - GetCurrentDistance();
+  volume_amount = M_PI * bottle_diameter * water_height;
+  return volume_amount;
+}
+
+float AmountDrank()
+{
+  current_water_amount = AmountOfWater();
+  if (current_water_amount < previous_water_amount)
+  {
+    amount_drank = previous_water_amount - current_water_amount;
+    current_water_amount = previous_water_amount;
   }
+  return amount_drank;
+}
 
 void SensorTesting()
 {
   us_sensor.SenseDistance();
   us_sensor.PrintData();
-  AmountDrank();
+  Serial.println("Amount Consumed: " + String(AmountDrank()) + "\n");
 
   // printf("MPU Data: %f", PrintMPUData());
 }
