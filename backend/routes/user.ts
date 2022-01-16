@@ -18,8 +18,6 @@ var userInfo: User = {
 };
 
 user.post("/", (req, res) => {
-  // INSERT INTO user_table(email, password, flask_name, flask_size, user_weight, user_height, user_age, dietary_restrictions, daily_target_water_level)
-  //   VALUES ('email@email.com', 'password', 'flask_one', 32, 180, 72, 25, 'none', 100);
   const new_user = req.body;
   res.jsonp(userInfo);
   let query = `INSERT INTO user_table(email, password, flask_name, flask_size, user_weight, user_height, user_age, dietary_restrictions, daily_target_water_level) VALUES ('${new_user.email}', '${new_user.password}', '${new_user.flask_name}', ${new_user.flask_size}, ${new_user.user_weight}, ${new_user.user_height}, ${new_user.user_age}, '${new_user.dietary_restrictions}', ${new_user.daily_target_water_level})`;
