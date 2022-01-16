@@ -26,9 +26,8 @@ flask.get("/", (req, res) => {
 });
 
 flask.post("/", (req, res) => {
-  const new_user = req.body;
-  res.jsonp(fullFlaskInfo);
-  let query = `INSERT INTO flask_table(timestamp_id, water_level, water_temperature, water_consumed, time_tilted, flask_gps, flask_name) VALUES ('${new_user.timestamp_id}', '${new_user.water_level}', '${new_user.water_temperature}', '${new_user.water_consumed}', '${new_user.time_tilted}', '${new_user.flask_gps}', '${new_user.flask_name}')`;
+  const new_flask = req.body;
+  let query = `INSERT INTO flask_table(timestamp_id, water_level, water_temperature, water_consumed, time_tilted, flask_gps, flask_name) VALUES ('${new_flask.timestamp_id}', '${new_flask.water_level}', '${new_flask.water_temperature}', '${new_flask.water_consumed}', '${new_flask.time_tilted}', '${new_flask.flask_gps}', '${new_flask.flask_name}')`;
   connection.query(query, function (err: Error, results) {
     if (err) throw err;
     res.json({
