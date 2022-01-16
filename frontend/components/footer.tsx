@@ -4,6 +4,7 @@ function Footer() {
   return (
     <footer className={styles.footer}>
       <a
+        className=".nav a:hover"
         href="https://github.com/naterpotatoers/SmartFlask"
         target="_blank"
         rel="noopener noreferrer"

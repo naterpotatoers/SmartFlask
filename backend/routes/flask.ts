@@ -15,6 +15,15 @@ var fullFlaskInfo: Flask = {
   flask_name: "",
 };
 
+flask.get("/leaderboard", (req, res) => {
+  let query =
+    "SELECT flask_name, SUM(water_consumed) AS water_consumed FROM flask_table_v2 GROUP BY flask_name ORDER BY water_consumed DESC LIMIT 3";
+  connection.query(query, function (err: Error, results) {
+    if (err) throw err;
+    res.send(JSON.stringify(results));
+  });
+});
+
 flask.get("/", (req, res) => {
   let query = "SELECT * FROM flask_table_v2";
   connection.query(query, function (err: Error, results) {
@@ -41,15 +50,6 @@ flask.get("/:flask_id", (req, res) => {
 flask.post("/", (req, res) => {
   const new_flask = req.body;
   let query = `INSERT INTO flask_table_v2(water_level, water_temperature, water_consumed, time_tilted, flask_gps, flask_name) VALUES ('${new_flask.water_level}', '${new_flask.water_temperature}', '${new_flask.water_consumed}', '${new_flask.time_tilted}', '${new_flask.flask_gps}', '${new_flask.flask_name}')`;
-  connection.query(query, function (err: Error, results) {
-    if (err) throw err;
-    res.send(JSON.stringify(results));
-  });
-});
-
-flask.get("/leaderboard", (req, res) => {
-  let query =
-    "SELECT flask_name, SUM(water_consumed) AS water_consumed FROM flask_table_v2 GROUP BY flask_name ORDER BY water_consumed DESC LIMIT 3";
   connection.query(query, function (err: Error, results) {
     if (err) throw err;
     res.send(JSON.stringify(results));

@@ -28,6 +28,10 @@
   flex-grow: 1;
 }
 
+.footer a:hover {
+  color: #00baf3;
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -88,8 +92,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #00baf3;
+  border-color: #00baf3;
 }
 
 .card h2 {
@@ -103,6 +107,13 @@
   line-height: 1.5;
 }
 
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
 .main-header {
   background-position: center center;
   background-size: cover;
@@ -112,7 +123,10 @@
 }
 
 .nav ul {
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .nav li {
@@ -121,8 +135,8 @@
 
 .nav a {
   display: inline-block;
-  padding: 0.5em;
-  color: rgb(0, 0, 0);
+  padding: 0.8em;
+  color: #000000;
 }
 
 .main-nav {
@@ -133,7 +147,7 @@
 }
 
 .nav a:hover {
-  color: rgba(0, 0, 0, 0.2);
+  color: #00baf3;
 }
 
 .logo {
@@ -146,4 +160,9 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.button a:hover {
+  color: #00baf3;
+  background-color: #00baf3;
 }
