@@ -1,5 +1,6 @@
 import express from "express";
 import { Flask } from "../interfaces/flask.interface";
+import { connection } from "../index";
 export const flask = express.Router();
 
 // WILL BE USED FOR THE FLASK
@@ -15,14 +16,22 @@ var fullFlaskInfo: Flask = {
 };
 
 flask.get("/", (req, res) => {
-  res.send("Welcome to Flask Status page!");
+  let query = "SELECT * FROM flask_table";
+  connection.query(query, function (err: Error, results) {
+    if (err) throw err;
+    res.json({
+      results,
+    });
+  });
 });
 
 flask.post("/", (req, res) => {
-  res.jsonp(fullFlaskInfo);
-});
-
-flask.get("/status", (req, res) => {
-  console.log(fullFlaskInfo);
-  res.jsonp(fullFlaskInfo);
+  const new_flask = req.body;
+  let query = `INSERT INTO flask_table(timestamp_id, water_level, water_temperature, water_consumed, time_tilted, flask_gps, flask_name) VALUES ('${new_flask.timestamp_id}', '${new_flask.water_level}', '${new_flask.water_temperature}', '${new_flask.water_consumed}', '${new_flask.time_tilted}', '${new_flask.flask_gps}', '${new_flask.flask_name}')`;
+  connection.query(query, function (err: Error, results) {
+    if (err) throw err;
+    res.json({
+      results,
+    });
+  });
 });
