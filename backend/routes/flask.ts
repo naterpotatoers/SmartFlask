@@ -1,4 +1,5 @@
 import express from "express";
+import mysql from "mysql";
 import { Flask } from "../interfaces/flask.interface";
 import { connection } from "../index";
 export const flask = express.Router();
@@ -17,6 +18,17 @@ var fullFlaskInfo: Flask = {
 
 flask.get("/", (req, res) => {
   let query = "SELECT * FROM flask_table";
+  connection.query(query, function (err: Error, results) {
+    if (err) throw err;
+    res.json({
+      results,
+    });
+  });
+});
+
+flask.get("/average", (req, res) => {
+  let query =
+    "SELECT AVG(water_level), AVG(water_temperature), AVG(water_consumed), AVG(time_tilted) FROM flask_table WHERE flask_name = 'flask_four'";
   connection.query(query, function (err: Error, results) {
     if (err) throw err;
     res.json({
