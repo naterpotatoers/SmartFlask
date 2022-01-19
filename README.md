@@ -4,7 +4,7 @@ By Adrian, Adrien, Nate, Weston
 <br/>
 ![Logo](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/797/208/datas/original.png)
 
-A IoT bottle that tracks water consumption. Winner of Best Health Hack, MLH's Best Hardware Hack, and QB3's Best Big Data for the Improvement of Health Care Winner at CruzHacks 2022.
+An IoT bottle that tracks water consumption. Winner of Best Health Hack, MLH's Best Hardware Hack, and QB3's Best Big Data for the Improvement of Health Care Winner at CruzHacks 2022.
 <br/>
 [Plan of Reference Document](https://docs.google.com/presentation/d/102n18cPRJnqRSowYpp3QLn0Yix3CWpKABw2xC8X9vEw/edit?usp=sharing)
 <br/>
